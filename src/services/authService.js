@@ -27,7 +27,6 @@ export function getUsersApi() {
 }
 
 export function changeUserStatusApi({ userId, data }) {
-  // data => {status:0, 1, 2}
   return http
     .patch(`/admin/user/verify/${userId}`, data)
     .then(({ data }) => data.data);

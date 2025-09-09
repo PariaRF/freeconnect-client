@@ -4,45 +4,43 @@ import FilterDropDown from "../../../ui/FilterDropDown";
 
 const sortOptions = [
   {
-    label: "مرتب سازی (جدید ترین)",
     value: "latest",
+    label: "Sort(Latest)",
   },
   {
-    label: "مرتب سازی (قدیمی ترین)",
     value: "earliest",
+    label: "Sort(Earliest)",
   },
 ];
 
 const statusOptions = [
   {
-    label: "همه",
     value: "ALL",
+    label: "All",
   },
   {
-    label: "باز",
     value: "OPEN",
+    label: "Open",
   },
   {
-    label: "بسته",
     value: "CLOSED",
+    label: "Closed",
   },
 ];
 
-function ProjectsHeader() {
+function ProjectHeader() {
   const { transformedCategories } = useCategories();
+
   return (
     <div className="flex items-center justify-between text-secondary-700 mb-8">
-      <h1 className="text-lg font-bold">لیست پروژه ها</h1>
+      <h1 className="text-lg font-bold">Project List</h1>
       <div className="flex gap-x-8 items-center">
         <Filter filterField="status" options={statusOptions} />
         <FilterDropDown filterField="sort" options={sortOptions} />
         <FilterDropDown
           filterField="category"
           options={[
-            {
-              value: "ALL",
-              label: "دسته بندی (همه)",
-            },
+            { value: "ALL", label: "Category(All)" },
             ...transformedCategories,
           ]}
         />
@@ -50,4 +48,5 @@ function ProjectsHeader() {
     </div>
   );
 }
-export default ProjectsHeader;
+
+export default ProjectHeader;

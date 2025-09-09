@@ -1,12 +1,12 @@
 import http from "./httpService";
 
-export function changeProposalStatusApi({ proposalId, ...rest }) { // {status, projectId}
+export function changeProposalStatusApi({ proposalId, ...data }) {
   return http
-    .patch(`/proposal/${proposalId}`, rest)
+    .patch(`/proposal/${proposalId}`, data)
     .then(({ data }) => data.data);
 }
 
-export function getProposalsApi() {
+export function getProposalApi() {
   return http.get(`/proposal/list`).then(({ data }) => data.data);
 }
 

@@ -1,38 +1,38 @@
 import { useForm } from "react-hook-form";
 import RHFSelect from "../../ui/RHFSelect";
-import useChangeProposalStaus from "./useChangeProposalStatus";
+import useChangeProposalStatus from "./useChangeProposalStatus";
 import { useQueryClient } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import Loading from "../../ui/Loading";
 
 const options = [
   {
-    label: "رد شده",
+    label: "Rejected",
     value: 0,
   },
   {
-    label: "در انتظار تایید",
+    label: "Waiting for confirmation",
     value: 1,
   },
   {
-    label: "تایید شده",
+    label: "Confirmed",
     value: 2,
   },
 ];
 
-function ChangeProposalStatus({ proposalId, onClose }) {
-  const { id: projectId } = useParams();
+function ChangeRequestStatus({ proposalId, onClose, projectId }) {
   const { register, handleSubmit } = useForm();
-  const { chnageProposalStatus, isUpdating } = useChangeProposalStaus();
+  const { isUpdatingProposalStatus, changeProposalStatus } =
+    useChangeProposalStatus();
   const queryClient = useQueryClient();
 
   const onSubmit = (data) => {
-    chnageProposalStatus(
-      { proposalId, projectId, ...data }, // {projectId, proposalId, status}
+    changeProposalStatus(
+      { proposalId, projectId, ...data },
       {
         onSuccess: () => {
-          onClose();
           queryClient.invalidateQueries({ queryKey: ["project", projectId] });
+          onClose();
         },
       }
     );
@@ -40,20 +40,20 @@ function ChangeProposalStatus({ proposalId, onClose }) {
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form className="space-y-9" onSubmit={handleSubmit(onSubmit)}>
         <RHFSelect
           name="status"
-          label="تغییر وضعیت"
+          label="Change status"
           register={register}
           required
           options={options}
         />
-        <div className="!mt-8">
-          {isUpdating ? (
+        <div>
+          {isUpdatingProposalStatus ? (
             <Loading />
           ) : (
             <button className="btn btn--primary w-full" type="submit">
-              تایید
+              Confirm
             </button>
           )}
         </div>
@@ -61,4 +61,5 @@ function ChangeProposalStatus({ proposalId, onClose }) {
     </div>
   );
 }
-export default ChangeProposalStatus;
+
+export default ChangeRequestStatus;

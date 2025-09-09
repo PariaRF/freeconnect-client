@@ -6,27 +6,27 @@ import useChangeUserStatus from "./useChangeUserStatus";
 
 const options = [
   {
-    label: "رد شده",
+    label: "Rejected",
     value: 0,
   },
   {
-    label: "در انتظار تایید",
+    label: "Waiting for confirmation",
     value: 1,
   },
   {
-    label: "تایید شده",
+    label: "confirmed",
     value: 2,
   },
 ];
 
 function ChangeUserStatus({ userId, onClose }) {
   const { register, handleSubmit } = useForm();
-  const { changeUserStatus, isUpdating } = useChangeUserStatus();
+  const { isUsersLoading, changeUserStatus } = useChangeUserStatus();
   const queryClient = useQueryClient();
 
   const onSubmit = (data) => {
     changeUserStatus(
-      { userId, data }, // {userId, data: {status:0, 1, 2}}
+      { userId, data },
       {
         onSuccess: () => {
           onClose();
@@ -38,20 +38,20 @@ function ChangeUserStatus({ userId, onClose }) {
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form className="space-y-9" onSubmit={handleSubmit(onSubmit)}>
         <RHFSelect
           name="status"
-          label="تغییر وضعیت"
+          label="Change status"
           register={register}
           required
           options={options}
         />
-        <div className="!mt-8">
-          {isUpdating ? (
+        <div>
+          {isUsersLoading ? (
             <Loading />
           ) : (
             <button className="btn btn--primary w-full" type="submit">
-              تایید
+              Confirm
             </button>
           )}
         </div>
@@ -59,4 +59,5 @@ function ChangeUserStatus({ userId, onClose }) {
     </div>
   );
 }
+
 export default ChangeUserStatus;

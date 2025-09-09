@@ -1,33 +1,35 @@
 import Empty from "../../../ui/Empty";
 import Loading from "../../../ui/Loading";
 import Table from "../../../ui/Table";
-import useUsers from "../useUsers";
+import useUser from "../useUser";
 import UserRow from "./UserRow";
 
 function UsersTable() {
-  const { isLoading, users } = useUsers();
+  const { isLoading, users } = useUser();
 
   if (isLoading) return <Loading />;
-
-  if (!users.length) return <Empty resourceName="کاربری" />;
+  if (users && !users.length) return <Empty resourceName="User" />;
 
   return (
-    <Table>
-      <Table.Header>
-        <th>#</th>
-        <th>نام</th>
-        <th>ایمیل</th>
-        <th>شماره موبایل</th>
-        <th>نقش</th>
-        <th>وضعیت</th>
-        <th>عملیات</th>
-      </Table.Header>
-      <Table.Body>
-        {users.map((user, index) => (
-          <UserRow key={user._id} user={user} index={index} />
-        ))}
-      </Table.Body>
-    </Table>
+    <div>
+      <Table>
+        <Table.Header>
+          <th>#</th>
+          <th>Name</th>
+          <th>Email</th>
+          {/* <th>Phone Number</th> */}
+          <th>Role</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </Table.Header>
+        <Table.Body>
+          {users.map((user, index) => (
+            <UserRow key={user._id} user={user} index={index} />
+          ))}
+        </Table.Body>
+      </Table>
+    </div>
   );
 }
+
 export default UsersTable;

@@ -5,6 +5,7 @@ function Table({ children }) {
     </div>
   );
 }
+
 export default Table;
 
 function TableHeader({ children }) {

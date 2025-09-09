@@ -4,6 +4,8 @@ function Toggle({ label, enabled, onChange }) {
   return (
     <Switch.Group>
       <div className="flex items-center gap-x-2">
+        <Switch.Label>{label}</Switch.Label>
+
         <Switch
           checked={enabled}
           onChange={onChange}
@@ -13,11 +15,10 @@ function Toggle({ label, enabled, onChange }) {
         >
           <span
             className={`${
-              enabled ? "-translate-x-6" : "-translate-x-1"
+              enabled ? "translate-x-6" : "translate-x-1"
             } inline-block h-4 w-4 transform rounded-full bg-secondary-0 transition-transform`}
           />
         </Switch>
-        <Switch.Label>{label}</Switch.Label>
       </div>
     </Switch.Group>
   );

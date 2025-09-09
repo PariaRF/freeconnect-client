@@ -2,30 +2,24 @@ import { useState } from "react";
 import Table from "../../ui/Table";
 import truncateText from "../../utils/truncateText";
 import Modal from "../../ui/Modal";
-import ChangeProposalStatus from "./ChangeProposalStatus";
-import {
-  toPersianNumbers,
-  toPersianNumbersWithComma,
-} from "../../utils/toPersianNumbers";
-
-// 0, 1, 2
+import ChangeRequestStatus from "./ChangeRequestStatus";
 
 const statusStyle = [
   {
-    label: "رد شده",
+    label: "Rejected",
     className: "badge--danger",
   },
   {
-    label: "در انتظار تایید",
+    label: "Waiting for confirmation",
     className: "badge--secondary",
   },
   {
-    label: "تایید شده",
+    label: "Confirmed",
     className: "badge--success",
   },
 ];
 
-function ProposalRow({ proposal, index }) {
+function ProposalRow({ proposal, index, project }) {
   const { status, user } = proposal;
   const [open, setOpen] = useState(false);
   return (
@@ -35,8 +29,8 @@ function ProposalRow({ proposal, index }) {
       <td>
         <p>{truncateText(proposal.description, 50)}</p>
       </td>
-      <td>{toPersianNumbers(proposal.duration)} روز</td>
-      <td>{toPersianNumbersWithComma(proposal.price)}</td>
+      <td>{proposal.duration}</td>
+      <td>{proposal.price}</td>
       <td>
         <span className={`badge ${statusStyle[status].className}`}>
           {statusStyle[status].label}
@@ -44,18 +38,20 @@ function ProposalRow({ proposal, index }) {
       </td>
       <td>
         <Modal
-          title="تغییر وضعیت درخواست"
-          open={open}
           onClose={() => setOpen(false)}
+          open={open}
+          title="Change Request Status"
         >
-          <ChangeProposalStatus
+          <ChangeRequestStatus
+            projectId={project._id}
             proposalId={proposal._id}
             onClose={() => setOpen(false)}
           />
         </Modal>
-        <button onClick={() => setOpen(true)}>تغییر وضعیت</button>
+        <button onClick={() => setOpen(true)}>Change Status</button>
       </td>
     </Table.Row>
   );
 }
+
 export default ProposalRow;

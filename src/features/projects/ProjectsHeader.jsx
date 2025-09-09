@@ -7,22 +7,21 @@ function ProjectsHeader() {
   const [open, setOpen] = useState(false);
   return (
     <div className="flex items-center justify-between mb-8">
-      <h1 className="font-black text-secondary-700 text-xl">پروژه های شما</h1>
-      <Modal
-        title="اضافه کردن پروژه جدید"
-        open={open}
-        onClose={() => setOpen(false)}
-      >
+      <h1 className="font-black text-secondary-700 text-xs md:text-xl">
+        Your Projects
+      </h1>
+      <Modal title="Add Project" open={open} onClose={() => setOpen(false)}>
         <CreateProjectForm onClose={() => setOpen(false)} />
       </Modal>
       <button
         onClick={() => setOpen(true)}
-        className="btn btn--primary flex items-center gap-x-2"
+        className="btn btn--primary flex items-center gap-x-1 md:gap-x-2 text-xs md:text-xl"
       >
         <HiOutlinePlus />
-        <span>اضافه کردن پروژه</span>
+        <span>Add Project</span>
       </button>
     </div>
   );
 }
+
 export default ProjectsHeader;

@@ -1,12 +1,13 @@
-import CompleteProfileFrom from "../features/authentication/CompleteProfileFrom";
+import CompleteProfileForm from "../features/authentication/CompleteProfileForm";
 
 function CompleteProfile() {
   return (
-    <div className="h-screen bg-secondary-0">
+    <div className="min-h-screen secondary-0">
       <div className="container xl:max-w-screen-xl">
-        <CompleteProfileFrom />
+        <CompleteProfileForm />
       </div>
     </div>
   );
 }
+
 export default CompleteProfile;

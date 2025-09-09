@@ -1,6 +1,6 @@
-import { HiCollection, HiHome } from "react-icons/hi";
+import { HiCollection, HiDocumentText, HiFolder } from "react-icons/hi";
 import AppLayout from "../../ui/AppLayout";
-import { CustomNavLink } from "../../ui/CustomNavlLink";
+import CustomNavLink from "../../ui/CustomNavLink";
 import Sidebar from "../../ui/Sidebar";
 
 function FreelancerLayout() {
@@ -8,19 +8,22 @@ function FreelancerLayout() {
     <AppLayout>
       <Sidebar>
         <CustomNavLink to="dashboard">
-          <HiHome />
-          <span>داشبورد</span>
+          <HiCollection />
+          <span>Dashboard</span>
         </CustomNavLink>
+
         <CustomNavLink to="projects">
-          <HiCollection />
-          <span>پروژه ها</span>
+          <HiFolder />
+          <span>Projects</span>
         </CustomNavLink>
+
         <CustomNavLink to="proposals">
-          <HiCollection />
-          <span>درخواست ها</span>
+          <HiDocumentText />
+          <span>Requests</span>
         </CustomNavLink>
       </Sidebar>
     </AppLayout>
   );
 }
+
 export default FreelancerLayout;

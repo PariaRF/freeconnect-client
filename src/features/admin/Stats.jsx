@@ -1,26 +1,28 @@
-import { HiOutlineViewGrid, HiUser, HiCollection } from "react-icons/hi";
+import { HiCollection, HiOutlineViewGrid, HiUsers } from "react-icons/hi";
 import Stat from "../../ui/Stat";
 
-function Stats({ proposals, users, projects }) {
+function Stats({ proposals, projects, users }) {
   return (
-    <div className="grid grid-cols-3 gap-8">
+    <div className="grid lg:grid-cols-3 gap-y-8 lg:gap-y-1 gap-x-8">
       <Stat
-        color="orange"
-        title="کاربران"
+        color="blue"
+        title="Users"
         value={users}
-        icon={<HiUser className="w-20 h-20" />}
+        icon={<HiUsers className="w-20 h-20" />}
       />
-      <Stat
-        color="primary"
-        title="درخواست ها"
-        value={proposals}
-        icon={<HiOutlineViewGrid className="w-20 h-20" />}
-      />
+
       <Stat
         color="green"
-        title="پروژه ها"
+        title="Projects"
         value={projects}
         icon={<HiCollection className="w-20 h-20" />}
+      />
+
+      <Stat
+        color="primary"
+        title="Proposals"
+        value={proposals}
+        icon={<HiOutlineViewGrid className="w-20 h-20" />}
       />
     </div>
   );

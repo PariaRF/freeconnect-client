@@ -14,4 +14,5 @@ function DarkModeToggle() {
     </button>
   );
 }
+
 export default DarkModeToggle;

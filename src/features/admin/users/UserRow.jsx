@@ -3,17 +3,17 @@ import Modal from "../../../ui/Modal";
 import Table from "../../../ui/Table";
 import ChangeUserStatus from "./ChangeUserStatus";
 
-const statusStyle = [
+const userStatus = [
   {
-    label: "رد شده",
+    label: "Rejected",
     className: "badge--danger",
   },
   {
-    label: "در انتظار تایید",
+    label: "Waiting for confirmation",
     className: "badge--secondary",
   },
   {
-    label: "تایید شده",
+    label: "Confirmed",
     className: "badge--success",
   },
 ];
@@ -27,28 +27,27 @@ function UserRow({ user, index }) {
       <td>{index + 1}</td>
       <td>{user.name}</td>
       <td>{user.email}</td>
-      <td>{user.phoneNumber}</td>
+      {/* <td>{user.phoneNumber}</td> */}
       <td>{user.role}</td>
       <td>
-        <span className={`badge ${statusStyle[status].className}`}>
-          {statusStyle[status].label}
-        </span>
+        {
+          <span className={`badge ${userStatus[status].className}`}>
+            {userStatus[status].label}
+          </span>
+        }
       </td>
       <td>
+        <button onClick={() => setOpen(true)}>Change Status</button>
         <Modal
-          title="تغییر وضعیت کاربر"
           open={open}
           onClose={() => setOpen(false)}
+          title="Change User Status"
         >
-          <ChangeUserStatus
-            userId={user._id}
-            onClose={() => setOpen(false)}
-          />
+          <ChangeUserStatus userId={user._id} onClose={() => setOpen(false)} />
         </Modal>
-        <button onClick={() => setOpen(true)}>تغییر وضعیت</button>
       </td>
     </Table.Row>
   );
 }
-export default UserRow;
 
+export default UserRow;

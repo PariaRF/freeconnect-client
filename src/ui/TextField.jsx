@@ -1,10 +1,10 @@
 function TextField({
   label,
   name,
-  register,
-  validationSchema = {},
   type = "text",
+  register,
   required,
+  validationSchema,
   errors,
 }) {
   return (
@@ -13,10 +13,10 @@ function TextField({
         {label} {required && <span className="text-error">*</span>}
       </label>
       <input
-        {...register(name, validationSchema)}
         id={name}
-        className="textField__input"
         type={type}
+        {...register(name, validationSchema)}
+        className="text-field--input"
         autoComplete="off"
       />
       {errors && errors[name] && (
@@ -27,4 +27,5 @@ function TextField({
     </div>
   );
 }
+
 export default TextField;

@@ -1,27 +1,33 @@
+import { useEffect } from "react";
 import Empty from "../../ui/Empty";
 import Table from "../../ui/Table";
 import ProposalRow from "./ProposalRow";
 
-function ProposalsTable({ proposals }) {
-  if (!proposals.length) return <Empty resourceName="درخواستی" />;
-
+function ProposalsTable({ proposals, project }) {
+  if (!proposals.length) return <Empty resourceName="No Request Found!" />;
   return (
     <Table>
       <Table.Header>
         <th>#</th>
-        <th>فریلنسر</th>
-        <th>توضیحات</th>
-        <th>زمان تحویل</th>
-        <th>هزینه</th>
-        <th>وضعیت</th>
-        <th>عملیات</th>
+        <th>Freelancer</th>
+        <th>Dcription</th>
+        <th>Delivery time</th>
+        <th>Price</th>
+        <th>Status</th>
+        <th>Actions</th>
       </Table.Header>
       <Table.Body>
         {proposals.map((proposal, index) => (
-          <ProposalRow key={proposal._id} proposal={proposal} index={index} />
+          <ProposalRow
+            key={proposal._id}
+            proposal={proposal}
+            index={index}
+            project={project}
+          />
         ))}
       </Table.Body>
     </Table>
   );
 }
+
 export default ProposalsTable;

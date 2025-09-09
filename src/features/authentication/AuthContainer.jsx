@@ -3,20 +3,20 @@ import SendOTPForm from "./SendOTPForm";
 import CheckOTPForm from "./CheckOTPForm";
 import { useMutation } from "@tanstack/react-query";
 import { getOtp } from "../../services/authService";
-import { toast } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import useUser from "./useUser";
 import { useNavigate } from "react-router-dom";
 
 function AuthContainer() {
-  const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const { handleSubmit, register, getValues } = useForm();
   const { user } = useUser();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (user) navigate("/", { replace: true });
-  }, [user, navigate]);
+  }, [user]);
 
   const {
     isPending: isSendingOtp,
@@ -29,8 +29,8 @@ function AuthContainer() {
   const sendOtpHandler = async (data) => {
     try {
       const { message } = await mutateAsync(data);
-      setStep(2);
       toast.success(message);
+      setStep(2);
     } catch (error) {
       toast.error(error?.response?.data?.message);
     }
@@ -41,24 +41,22 @@ function AuthContainer() {
       case 1:
         return (
           <SendOTPForm
-            isSendingOtp={isSendingOtp}
-            onSubmit={handleSubmit(sendOtpHandler)}
             setStep={setStep}
+            onSubmit={handleSubmit(sendOtpHandler)}
             register={register}
-            // onSubmit={sendOtpHandler}
-            // phoneNumber={phoneNumber}
-            // onChange={(e) => setPhoneNumber(e.target.value)}
+            isSendingOtp={isSendingOtp}
           />
         );
       case 2:
         return (
           <CheckOTPForm
-            onReSendOtp={sendOtpHandler}
             phoneNumber={getValues("phoneNumber")}
-            onBack={() => setStep((s) => s - 1)}
+            onBack={() => setStep(1)}
+            onResendOtp={sendOtpHandler}
             otpResponse={otpResponse}
           />
         );
+
       default:
         return null;
     }
@@ -66,4 +64,5 @@ function AuthContainer() {
 
   return <div className="w-full sm:max-w-sm">{renderStep()}</div>;
 }
+
 export default AuthContainer;

@@ -11,8 +11,9 @@ function Project() {
   return (
     <div>
       <ProjectHeader project={project} />
-      <ProposalsTable proposals={project.proposals} />
+      <ProposalsTable proposals={project.proposals} project={project} />
     </div>
   );
 }
+
 export default Project;
